@@ -1,0 +1,55 @@
+<h1>Show</h1>
+
+<p> 
+  <strong>Title:</strong>
+  <%= @question.title %>
+</p>
+<p> 
+  <strong>Name:</strong>
+  <%= @question.name %>
+</p>
+<p> 
+  <strong>Content:</strong>
+  <%= @question.content %>
+</p>
+<p> 
+  <strong>Created at:</strong>
+  <%= @question.created_at %>
+</p>        
+<p> 
+  <strong>Updated at:</strong>
+  <%= @question.updated_at %>
+</p>
+
+<h2>Answers</h2>
+<% @question.answers.each do |answer| %>
+  <p> 
+    <strong>Name:</strong>
+    <%= answer.name %>
+  </p>
+  <p> 
+    <strong>Content:</strong>
+    <%= answer.content %>
+  </p>
+  <p> 
+    <%= link_to 'Destory Answer', [answer.question, answer],
+      data: { turbo_method: 'delete', turbo_confirm: 'Are you sure?' } %>
+  </p>
+<% end %>
+
+<h2>Add an answer</h2>
+<%= form_with model: [@question, @question.answers.build] do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_area :name %>
+  </div>
+    <div>
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'top', questions_path %>
